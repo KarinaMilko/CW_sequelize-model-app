@@ -1,5 +1,5 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -13,19 +13,62 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      nickname: DataTypes.STRING,
-      email: DataTypes.STRING,
-      tel: DataTypes.STRING,
-      passwHash: DataTypes.STRING, // { field: 'passw_hash' }
-      birthday: DataTypes.DATEONLY,
-      gender: DataTypes.STRING,
-      role: DataTypes.STRING,
-      image: DataTypes.STRING,
+      nickname: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        unique: true,
+        validate: {
+          len: [3, 50],
+        },
+      },
+      email: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: true,
+        },
+      },
+      tel: {
+        type: DataTypes.STRING(13),
+        unique: true,
+        validate: {
+          is: /^\+380\d{9}$|^0\d{9}$/,
+        },
+      },
+      passwHash: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      birthday: {
+        type: DataTypes.DATEONLY,
+        validate: {
+          isDate: true,
+          isBefore: new Date().toISOString(),
+        },
+      },
+      gender: {
+        type: DataTypes.ENUM("male", "female", "other"),
+        validate: {
+          isIn: ["male", "female", "other"],
+        },
+      },
+      role: {
+        type: DataTypes.ENUM("executor", "manager"),
+        allowNull: false,
+        defaultValue: "executor",
+        validate: {
+          isIn: ["executor", "manager"],
+        },
+      },
+      image: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,
       modelName: "User",
-      underscored: true, // тільки для моделькі
+      underscored: true,
     }
   );
   return User;
@@ -33,7 +76,6 @@ module.exports = (sequelize, DataTypes) => {
 // passwHash <-> passw_hash
 // model           table
 // { field: 'passw_hash' }
-
 // isDualSim->is_dual_sim
 // isNfs -> is_nfc
-// isNFC ->{ field: 'is_nfc' } is_nfc (is_n_f_c)
+// isNFC -> { field: 'is_nfc' } -> is_nfc (is_n_f_c)

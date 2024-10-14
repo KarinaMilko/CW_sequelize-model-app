@@ -4,7 +4,8 @@
     "password": "02121325",
     "database": "task_manager_development",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "seederStorage": "sequelize"
   },
   "test": {
     "username": "root",
