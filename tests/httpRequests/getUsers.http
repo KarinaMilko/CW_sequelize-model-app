@@ -1,0 +1,2 @@
+### 200 [users]
+GET http://localhost:5000/api/users?page=1&results=5

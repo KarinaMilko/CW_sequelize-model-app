@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "nickname": "test6",
-    "email": "mail6@mail.sfs",
+    "email": "mail6mail.sfs",
     "passwHash": "1234",
     "birthday": "2000-08-06",
     "gender": "male"
