@@ -1,0 +1,28 @@
+###200 {user}
+PATCH http://localhost:5000/api/users/4
+Content-Type: application/json
+
+{
+  "nickname": "Ivo"
+}
+### 404 Not Found
+PATCH http://localhost:5000/api/users/1000
+Content-Type: application/json
+
+{
+  "nickname": "Ivo"
+}
+### 500 model valid error
+PATCH http://localhost:5000/api/users/5
+
+Content-Type: application/json
+{
+  "nickname": "I"
+}
+### 500 db unique error
+PATCH http://localhost:5000/api/users/5
+Content-Type: application/json
+
+{
+  "tel": "+380123456788"
+}

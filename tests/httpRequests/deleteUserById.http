@@ -1,0 +1,4 @@
+### 204
+DELETE http://localhost:5000/api/users/5
+### 404
+DELETE http://localhost:5000/api/users/0
