@@ -1,7 +1,6 @@
-const bcrypt = require("bcrypt");
 const _ = require("lodash");
-const { User } = require("./../models");
 const createHttpError = require("http-errors");
+const { User } = require("./../models");
 
 // TODO yup validation mw (422)
 module.exports.createUser = async (req, res, next) => {

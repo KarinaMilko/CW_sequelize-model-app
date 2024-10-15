@@ -1,5 +1,8 @@
 "use strict";
 const { Model, Op } = require("sequelize");
+const bcrypt = require("bcrypt");
+
+const SALT_RAUNDS = 10;
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -39,6 +42,9 @@ module.exports = (sequelize, DataTypes) => {
       passwHash: {
         type: DataTypes.STRING,
         allowNull: false,
+        set(value) {
+          this.setDataValue("passwHash", bcrypt.hashSync(value, SALT_RAUNDS));
+        },
       },
       birthday: {
         type: DataTypes.DATEONLY,
