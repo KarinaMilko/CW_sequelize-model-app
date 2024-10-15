@@ -7,8 +7,6 @@ module.exports.createUser = async (req, res, next) => {
   const { body } = req;
 
   try {
-    const SALT_RAUNDS = 10;
-    body.passwHash = await bcrypt.hash(body.passwHash, SALT_RAUNDS);
     const createdUser = await User.create(body);
     // const prepatedUser = { ...createdUser.get() };
     // delete prepatedUser.passwHash;
