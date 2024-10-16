@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { usersController } = require("../controllers");
+const { updateOrCreateUserById } = require("../controllers/usersController");
 
 // аналогічно передбачити роутер для /api/tasks
 // /api/users
@@ -14,6 +15,7 @@ usersRouter
   .route("/:userId")
   .get(usersController.getUserById)
   .patch(usersController.updateUserById)
+  .put(usersController.updateOrCreateUserById, usersController.createUser)
   .delete(usersController.deleteUserById);
 
 // usersRouter.post('/', () => {});
@@ -24,5 +26,8 @@ usersRouter
 // usersRouter.get('/:userId', () => {});
 // usersRouter.patch('/:userId', () => {});
 // usersRouter.delete('/:userId', () => {});
+
+// patch - зміна
+// put заміна або створення
 
 module.exports = usersRouter;

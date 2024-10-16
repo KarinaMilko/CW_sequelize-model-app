@@ -1,0 +1,23 @@
+### 200 {user}
+PUT http://localhost:5000/api/users/22
+Content-Type: application/json
+
+{
+    "nickname": "test8",
+    "email": "mail8@mail.sfs",
+    "passwHash": "1234",
+    "birthday": "2000-08-06",
+    "gender": "male"
+}
+
+### 201 {user}
+PUT http://localhost:5000/api/users/101
+Content-Type: application/json
+
+{
+    "nickname": "test10",
+    "email": "mail10@mail.sfs",
+    "passwHash": "1234",
+    "birthday": "2000-08-06",
+    "gender": "male"
+}
