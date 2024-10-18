@@ -20,14 +20,25 @@ module.exports = {
       completed: {
         type: Sequelize.ENUM("completed", "not completed"),
         allowNull: false,
+        defaultValue: "not completed",
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
+      deadline: {
+        type: Sequelize.DATEONLY,
       },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "users",
+          key: "id",
+        },
+        createdAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+        },
+        updatedAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+        },
       },
     });
   },
