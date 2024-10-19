@@ -17,9 +17,9 @@ module.exports = {
       "users",
       [
         {
-          nickname: "test",
-          email: "mail@mail",
-          tel: "+380123456789",
+          nickname: "test8",
+          email: "mail8@mail",
+          tel: "+380123456744",
           passw_hash: bcrypt.hashSync("1234", SALT_RAUNDS),
           birthday: "2000-05-06",
           gender: "male",

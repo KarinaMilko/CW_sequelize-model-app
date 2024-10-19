@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
       gender: {
         type: DataTypes.ENUM("male", "female", "other"),
         validate: {
-          isIn: ["male", "female", "other"],
+          isIn: [["male", "female", "other"]],
         },
       },
       role: {
@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: "executor",
         validate: {
-          isIn: ["executor", "manager"],
+          isIn: [["executor", "manager"]],
         },
       },
       image: {
