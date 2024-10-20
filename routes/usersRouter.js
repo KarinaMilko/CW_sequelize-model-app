@@ -18,6 +18,8 @@ usersRouter
   .put(usersController.updateOrCreateUserById, usersController.createUser)
   .delete(usersController.deleteUserById);
 
+usersRouter.get("/:userId/tasks", usersController.getUsersTasks);
+
 // usersRouter.post('/', () => {});
 // usersRouter.get('/', (req, res) => {
 //   res.status(501).send('Not Implemented 007');

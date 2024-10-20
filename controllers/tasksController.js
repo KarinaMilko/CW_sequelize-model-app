@@ -1,23 +1,18 @@
-const { Task } = require("./../models");
+const { Task, User } = require("./../models");
 
-// Реалізувати CRUD над тасками в навчальному проєкті, аналогічно CRUD`у над користувачами:
-// post /api/tasks
-// get /api/tasks
-// get /api/tasks/:taskId
-// *patch /api/tasks/:taskId
-// *delete /api/tasks/:taskId
-
-module.exports.createTask = async (req, res, next) => {
-  const { body } = req;
+module.exports.getTasks = async (req, res, next) => {
   try {
-    const createdTask = await Task.create(body);
-    res.status(201).send({ data: createdTask });
+    const foundTasks = await Task.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: {
+        model: User,
+        attributes: ["nickname"],
+      },
+      raw: true,
+    });
+
+    res.status(200).send({ data: foundTasks });
   } catch (error) {
-    console.error("Error creating task:", error);
     next(error);
   }
 };
-module.exports.getTask = () => {};
-module.exports.getTaskById = () => {};
-module.exports.updateTaskById = () => {};
-module.exports.deleteTaskById = () => {};

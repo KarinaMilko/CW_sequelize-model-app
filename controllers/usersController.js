@@ -139,3 +139,27 @@ module.exports.deleteUserById = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.getUsersTasks = async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    // find user
+    // if not exists => 404
+    // else find his tasks
+
+    const foundUser = await User.findByPk(userId);
+
+    if (!foundUser) {
+      return next(createHttpError(404, "User Not Found"));
+    }
+
+    const foundTasks = await foundUser.getTasks({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      raw: true,
+    });
+
+    res.status(200).send({ data: foundTasks });
+  } catch (error) {
+    next(error);
+  }
+};
