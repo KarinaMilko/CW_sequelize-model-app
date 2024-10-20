@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Task extends Model {
     /**
@@ -10,15 +8,40 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Task.belongsTo(models.User, {
+        foreignKey: {
+          name: "userId",
+          allowNull: false,
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      });
     }
   }
-  Task.init({
-    body: DataTypes.STRING,
-    deadline: DataTypes.DATEONLY
-  }, {
-    sequelize,
-    modelName: 'Task',
-  });
+  Task.init(
+    {
+      body: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          not: /^$/,
+        },
+      },
+      deadline: {
+        type: DataTypes.DATEONLY,
+        validate: {
+          // пізніше за вчора
+          isAfter: new Date(
+            new Date().setDate(new Date().getDate() - 15)
+          ).toISOString(),
+        },
+      },
+    },
+    {
+      sequelize,
+      modelName: "Task",
+      underscored: true,
+    }
+  );
   return Task;
 };
