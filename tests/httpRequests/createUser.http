@@ -3,8 +3,8 @@ POST http://localhost:5000/api/users
 Content-Type: application/json
 
 {
-    "nickname": "test1",
-    "email": "mail1@mail.sfs",
+    "nickname": "test41",
+    "email": "mail41@mail.sfs",
     "passwHash": "1234",
     "birthday": "2005-05-06",
     "gender": "male"
