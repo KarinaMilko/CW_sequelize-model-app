@@ -1,6 +1,7 @@
 const _ = require("lodash");
 const createHttpError = require("http-errors");
 const { User } = require("./../models");
+const { where } = require("sequelize");
 
 // TODO yup validation mw (422)
 module.exports.createUser = async (req, res, next) => {
@@ -159,6 +160,38 @@ module.exports.getUsersTasks = async (req, res, next) => {
     });
 
     res.status(200).send({ data: foundTasks });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.updateImage = async (req, res, next) => {
+  const {
+    file,
+    params: { userId },
+  } = req;
+
+  try {
+    if (!file) {
+      return next(createHttpError(422, "Image is Required"));
+    }
+
+    const [, [updatedUser]] = await User.update(
+      { image: "images/" + file.filename },
+      { where: { id: userId }, returning: true, raw: true }
+    );
+
+    if (!updatedUser) {
+      return next(createHttpError(404, "User Not Found"));
+    }
+
+    const preparedUser = _.omit(updatedUser, [
+      "passwHash",
+      "createdAt",
+      "updatedAt",
+    ]);
+
+    res.status(200).send({ data: preparedUser });
   } catch (error) {
     next(error);
   }
