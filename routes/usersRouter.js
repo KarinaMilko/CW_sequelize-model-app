@@ -3,7 +3,9 @@ const multer = require("multer");
 const { usersController } = require("../controllers");
 const { updateOrCreateUserById } = require("../controllers/usersController");
 
-const upload = multer({ dest: "public/images/" });
+// const upload = multer({ dest: "public/images/" });
+const { upload } = require("../middleware");
+
 // аналогічно передбачити роутер для /api/tasks
 // /api/users
 const usersRouter = Router();
@@ -24,7 +26,8 @@ usersRouter.get("/:userId/tasks", usersController.getUsersTasks);
 
 usersRouter.patch(
   "/:userId/images",
-  upload.single("userPhoto"),
+  // upload.single("userPhoto"),
+  upload.uploadUserPhoto,
   usersController.updateImage
 );
 // usersRouter.post('/', () => {});
